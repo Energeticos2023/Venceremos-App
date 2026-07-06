@@ -46,7 +46,8 @@
       <div class="hero-copy">
         <p class="eyebrow">Elecciones Regionales y Municipales 2026 · Gobernador Regional</p>
         <h1>Walter Severo<br>Durand Castro</h1>
-        <p class="hero-lede">Candidato a Gobernador Regional de Áncash por la <strong>Alianza Electoral Venceremos</strong>. Un gobierno que se construye escuchando cada distrito, cada provincia, cada centro poblado.</p>
+        <p class="hero-kicker">El outsider que Áncash necesita: del quirófano al gobierno regional.</p>
+        <p class="hero-lede">Candidato a Gobernador Regional de Áncash por la <strong>Alianza Electoral Venceremos</strong>. Neurocirujano formado en San Marcos, con una vida entera al servicio de la salud pública. Ahora trae esa misma disciplina y rendición de cuentas al gobierno regional.</p>
         <div class="cta-row">
           <a href="#unete" class="btn btn-primary">Regístrate como simpatizante</a>
           <a href="#personero" class="btn btn-outline">Quiero ser personero</a>
@@ -116,15 +117,38 @@
       <div class="unete-card">
         <h3>Regístrate como simpatizante</h3>
         <p>Súmate en menos de 90 segundos. Tu registro ayuda a construir el mapa de apoyo en tu distrito.</p>
-        <a href="#" class="btn btn-primary">Formulario de simpatizante</a>
+        <form class="mini-form" data-tipo="Simpatizante" onsubmit="return enviarWhatsApp(event)">
+          <input type="text" name="nombre" placeholder="Nombre y apellido" required>
+          <input type="tel" name="celular" placeholder="Celular / WhatsApp" required>
+          <input type="text" name="distrito" placeholder="Distrito / Provincia" required>
+          <select name="necesidad">
+            <option value="">Necesidad principal en tu zona (opcional)</option>
+            <option>Salud</option>
+            <option>Electrificación</option>
+            <option>Saneamiento</option>
+            <option>Vías</option>
+            <option>Educación</option>
+            <option>Seguridad</option>
+          </select>
+          <label class="check-row"><input type="checkbox" required> Acepto que mis datos se usen para fines de esta campaña</label>
+          <button type="submit" class="btn btn-primary btn-block">Enviar registro por WhatsApp</button>
+        </form>
       </div>
       <div id="personero" class="unete-card">
         <h3>Postula a ser personero</h3>
         <p>Cuida el voto el día de la elección en tu mesa. Recibirás capacitación y acompañamiento del equipo.</p>
-        <a href="#" class="btn btn-outline-light">Postular como personero</a>
+        <form class="mini-form" data-tipo="Personero" onsubmit="return enviarWhatsApp(event)">
+          <input type="text" name="nombre" placeholder="Nombre y apellido" required>
+          <input type="tel" name="celular" placeholder="Celular / WhatsApp" required>
+          <input type="text" name="distrito" placeholder="Distrito / Provincia" required>
+          <input type="text" name="local" placeholder="Local de votación donde vota (si lo sabes)">
+          <label class="check-row"><input type="checkbox" required> Acepto que mis datos se usen para fines de esta campaña</label>
+          <button type="submit" class="btn btn-outline-light btn-block">Enviar postulación por WhatsApp</button>
+        </form>
       </div>
     </div>
   </section>
+
 
   <!-- CONTACTO / REDES -->
   <section id="contacto" class="section contacto-section">
@@ -147,5 +171,6 @@
   </div>
 </footer>
 
+<script src="script.js"></script>
 </body>
 </html>
