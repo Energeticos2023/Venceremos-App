@@ -246,8 +246,32 @@ const provinceTitle = document.getElementById("provinceTitle");
 const provinceZone = document.getElementById("provinceZone");
 const provinceFocus = document.getElementById("provinceFocus");
 const provinceIntro = document.getElementById("provinceIntro");
+const provinceMessage = document.getElementById("provinceMessage");
 const provinceProblems = document.getElementById("provinceProblems");
 const provinceSolutions = document.getElementById("provinceSolutions");
+
+const provinceMessages = {
+  Huaraz: "Mensaje clave: Huaraz no debe administrar problemas; debe liderar soluciones para todo Áncash.",
+  Aija: "Mensaje clave: Aija merece presencia regional real, no visitas rápidas ni promesas de temporada.",
+  Bolognesi: "Mensaje clave: donde hay agua, energía y caminos, la producción altoandina puede convertirse en bienestar.",
+  Recuay: "Mensaje clave: Recuay debe ser puente de desarrollo, no territorio de paso.",
+  Huari: "Mensaje clave: el canon debe sentirse en la posta, la escuela, la carretera y la mesa familiar.",
+  Corongo: "Mensaje clave: estar lejos no puede significar estar olvidado.",
+  Pallasca: "Mensaje clave: Pallasca necesita integración para que su producción valga más y sus familias vivan mejor.",
+  Pomabamba: "Mensaje clave: Pomabamba no pide privilegios; pide una carretera, salud y servicios que lleguen a tiempo.",
+  "Mariscal Luzuriaga": "Mensaje clave: Piscobamba y sus distritos necesitan que el Estado llegue con obra, no solo con papeles.",
+  "Antonio Raymondi": "Mensaje clave: cuidar a la primera infancia es empezar el desarrollo donde realmente empieza la vida.",
+  Sihuas: "Mensaje clave: Sihuas necesita conexión para que su esfuerzo no se pierda en el aislamiento.",
+  Ocros: "Mensaje clave: las provincias pequeñas también merecen soluciones grandes, bien pensadas y sostenidas.",
+  "Carlos Fermín Fitzcarrald": "Mensaje clave: conectar esta provincia es abrirle mercado, salud y futuro a sus familias.",
+  Casma: "Mensaje clave: Chinecas debe convertirse en agua para el campo y empleo para las familias.",
+  Santa: "Mensaje clave: Chimbote y Nuevo Chimbote necesitan seguridad, ambiente limpio y empleo con futuro.",
+  Huarmey: "Mensaje clave: Huarmey puede crecer si unimos valle, mar, sierra y Chinecas en una sola estrategia.",
+  Huaylas: "Mensaje clave: Huaylas tiene paisaje, identidad y producción; falta una gestión que los conecte.",
+  Carhuaz: "Mensaje clave: Carhuaz puede demostrar que el turismo también alimenta economías familiares.",
+  Yungay: "Mensaje clave: honrar la memoria de Yungay es gobernar con prevención, ciencia y responsabilidad.",
+  Asunción: "Mensaje clave: Asunción merece una región que entienda la ruralidad y la atienda con dignidad."
+};
 
 function renderProvinceButtons() {
   provinces.forEach((province, index) => {
@@ -271,6 +295,7 @@ function selectProvince(index) {
   provinceZone.textContent = province.zone;
   provinceFocus.textContent = province.focus;
   provinceIntro.textContent = province.intro;
+  provinceMessage.textContent = provinceMessages[province.name] || "Mensaje clave: una provincia escuchada es una provincia que puede exigir resultados.";
 
   provinceProblems.innerHTML = province.problems
     .map((problem) => `<li>${problem}</li>`)
