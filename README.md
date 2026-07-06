@@ -11,6 +11,7 @@ Landing page estática lista para publicar en GitHub Pages. No requiere backend 
   - principales problemas,
   - solución de corto, mediano y largo plazo.
 - Sección de prioridades regionales: salud, educación, servicios básicos, vías y economía.
+- Sección de compromisos regionales: deuda social docente, infraestructura educativa con internet, continuidad de Chinecas, gestión del riesgo y seguridad ciudadana.
 - Biografía sintética de Walter Durand.
 - Enlaces directos a Microsoft Forms:
   - simpatizantes y reporte de necesidades,
