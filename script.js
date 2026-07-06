@@ -1,28 +1,287 @@
-// Número de campaña (WhatsApp)
-const WHATSAPP_NUMERO = "51932757214"; // Perú (51) + 932757214
+const provinces = [
+  {
+    name: "Huaraz",
+    zone: "Callejón de Huaylas",
+    focus: "Salud, riesgo y turismo",
+    intro: "Huaraz debe liderar Áncash sin olvidar a sus barrios, centros poblados y distritos. La capital regional necesita ordenar servicios, prevenir riesgos y convertir el turismo en empleo para más familias.",
+    problems: ["Presión sobre hospitales y servicios urbanos", "Riesgo de aluviones y movimientos en masa", "Turismo concentrado con poca conexión hacia productores locales"],
+    solutions: {
+      corto: "Comando regional de salud y riesgo: mantenimiento de establecimientos, rutas de emergencia y simulacros por quebrada.",
+      mediano: "Paquetes turísticos y productivos con Carhuaz, Recuay, Yungay y Huaylas para distribuir ingresos.",
+      largo: "Sistema permanente de monitoreo de lagunas, alerta temprana e inversión en infraestructura resiliente."
+    }
+  },
+  {
+    name: "Aija",
+    zone: "Callejón de Huaylas",
+    focus: "Ruralidad y conectividad",
+    intro: "Aija no puede seguir siendo mirada solo en campaña. Una gestión que escucha debe llegar hasta sus comunidades con servicios básicos, internet y caminos que permitan producir y estudiar.",
+    problems: ["Alta ruralidad y pobreza territorial", "Baja conectividad digital", "Dificultades de acceso a salud, educación y mercados"],
+    solutions: {
+      corto: "Brigadas itinerantes de salud, nutrición y trámites regionales en coordinación con municipalidades.",
+      mediano: "Expedientes para agua, saneamiento, electrificación e internet comunitario priorizando centros poblados dispersos.",
+      largo: "Corredor vial y productivo que conecte Aija con el Callejón de Huaylas y mercados regionales."
+    }
+  },
+  {
+    name: "Bolognesi",
+    zone: "Sierra sur y occidental",
+    focus: "Riego y energía rural",
+    intro: "Bolognesi necesita que la minería y la agropecuaria de altura se traduzcan en bienestar. La región debe ser gestora de agua, electrificación y rutas para vender mejor.",
+    problems: ["Centros poblados dispersos con alto costo de infraestructura", "Brechas de electrificación rural", "Necesidad de agua para riego y producción altoandina"],
+    solutions: {
+      corto: "Mapa de comunidades sin servicios completos y mantenimiento de accesos críticos antes de temporadas de lluvia.",
+      mediano: "Cartera de pequeños sistemas de riego, electrificación rural y asistencia técnica ganadera.",
+      largo: "Conexión vial estratégica hacia Lima, Huánuco y corredores comerciales de la sierra."
+    }
+  },
+  {
+    name: "Recuay",
+    zone: "Callejón de Huaylas / Sierra sur",
+    focus: "Riesgo, turismo y producción",
+    intro: "Recuay puede ser puente entre el turismo de montaña, la producción altoandina y la conectividad hacia el sur. La respuesta debe ordenar inversiones pequeñas pero decisivas.",
+    problems: ["Riesgo climático y de desastres en zonas de montaña", "Potencial turístico poco integrado", "Necesidad de riego, vías y servicios para comunidades"],
+    solutions: {
+      corto: "Identificación de puntos críticos de riesgo, salud rural y vías vecinales para atención inmediata.",
+      mediano: "Rutas turísticas y productivas articuladas con Huaraz, Catac y Carhuaz.",
+      largo: "Infraestructura de prevención y conectividad que reduzca aislamiento y abra mercados."
+    }
+  },
+  {
+    name: "Huari",
+    zone: "Conchucos",
+    focus: "Canon bien gestionado",
+    intro: "Huari tiene recursos, pero el ciudadano necesita resultados visibles. Walter Durand propone que el canon se convierta en salud, carreteras y proyectos productivos con seguimiento público.",
+    problems: ["Uso insuficiente del canon minero para cerrar brechas", "Postas y hospitales rurales con baja capacidad resolutiva", "Aislamiento por falta de pavimentación plena de la Longitudinal de Conchucos"],
+    solutions: {
+      corto: "Tablero público de canon: proyectos, responsables, plazos y avance físico real.",
+      mediano: "Equipamiento de salud y paquetes de saneamiento en distritos de influencia minera.",
+      largo: "Impulso regional a la pavimentación y mantenimiento de la Carretera Longitudinal de Conchucos."
+    }
+  },
+  {
+    name: "Corongo",
+    zone: "Conchucos",
+    focus: "Servicios y conectividad digital",
+    intro: "Corongo debe dejar de ser periferia. Sus familias necesitan conectividad, salud preventiva y caminos que integren su producción con el resto de Áncash.",
+    problems: ["Bajo acceso a internet en hogares", "Servicios básicos dispersos", "Conectividad vial limitada con mercados y servicios regionales"],
+    solutions: {
+      corto: "Campañas de salud materno-infantil y módulos digitales en capitales distritales.",
+      mediano: "Proyectos de internet rural, saneamiento y mantenimiento de vías vecinales.",
+      largo: "Integración vial sostenida con corredores de Conchucos y la sierra norte."
+    }
+  },
+  {
+    name: "Pallasca",
+    zone: "Sierra norte y occidental",
+    focus: "Integración vial",
+    intro: "Pallasca necesita una región que mire al norte con decisión. La prioridad es conectar producción agropecuaria, servicios y oportunidades para que la distancia no sea abandono.",
+    problems: ["Dispersión poblacional y brechas de electrificación", "Accesos viales costosos y vulnerables", "Limitada articulación productiva con mercados"],
+    solutions: {
+      corto: "Mantenimiento de vías críticas y priorización de centros poblados sin servicios completos.",
+      mediano: "Electrificación rural, riego tecnificado y asistencia a cadenas agropecuarias.",
+      largo: "Corredores hacia La Libertad, Santa y Conchucos para mejorar comercio y atención estatal."
+    }
+  },
+  {
+    name: "Pomabamba",
+    zone: "Conchucos",
+    focus: "Salud y carretera",
+    intro: "Pomabamba necesita que el Estado llegue a tiempo. La solución pasa por salud resolutiva, educación con servicios y una Longitudinal de Conchucos que ya no sea promesa eterna.",
+    problems: ["Aislamiento vial por tramos afirmados", "Brechas de salud materno-infantil", "Baja conectividad digital y educativa"],
+    solutions: {
+      corto: "Brigadas de anemia, gestantes y primera infancia con seguimiento familiar.",
+      mediano: "Mejoramiento de postas, conectividad escolar y mantenimiento vial por tramos priorizados.",
+      largo: "Pavimentación de la Longitudinal de Conchucos con gestión regional permanente ante el Gobierno Nacional."
+    }
+  },
+  {
+    name: "Mariscal Luzuriaga",
+    zone: "Conchucos",
+    focus: "Piscobamba conectado",
+    intro: "Mariscal Luzuriaga necesita salir del aislamiento con una agenda concreta. Piscobamba y sus distritos requieren salud, caminos y servicios básicos que funcionen todos los días.",
+    problems: ["Aislamiento por la situación de la Longitudinal de Conchucos", "Servicios de salud de baja capacidad", "Saneamiento rural y conectividad digital insuficientes"],
+    solutions: {
+      corto: "Atención itinerante de salud, nutrición y mantenimiento de accesos de emergencia.",
+      mediano: "Expedientes de saneamiento e internet rural para distritos con mayor brecha.",
+      largo: "Consolidar el corredor Sihuas-Pomabamba-Piscobamba-Huari como columna vertebral de desarrollo."
+    }
+  },
+  {
+    name: "Antonio Raymondi",
+    zone: "Conchucos",
+    focus: "Primera infancia e internet",
+    intro: "Antonio Raymondi tiene derecho a la misma presencia regional que las grandes ciudades. La gestión debe entrar por la salud infantil, la conectividad y los servicios básicos.",
+    problems: ["Anemia y desnutrición en zonas rurales", "Bajo acceso a internet", "Brechas de saneamiento y equipamiento de establecimientos"],
+    solutions: {
+      corto: "Modelo casa por casa contra anemia, con control nutricional y metas distritales.",
+      mediano: "Saneamiento, electrificación complementaria e internet para escuelas y centros poblados.",
+      largo: "Integración plena al corredor de Conchucos para reducir tiempos de traslado y costos."
+    }
+  },
+  {
+    name: "Sihuas",
+    zone: "Conchucos",
+    focus: "Conectividad estructural",
+    intro: "Sihuas sabe lo que significa estar lejos. Un gobierno regional gestor debe convertir la carretera, la salud y la conectividad digital en una sola agenda de integración.",
+    problems: ["Aislamiento por carretera afirmada en gran parte del corredor", "Dificultad para derivaciones de salud", "Limitado acceso a servicios digitales"],
+    solutions: {
+      corto: "Rutas de emergencia y mantenimiento vial preventivo en puntos críticos.",
+      mediano: "Telemedicina, internet público y fortalecimiento de establecimientos estratégicos.",
+      largo: "Pavimentación de la Longitudinal de Conchucos y articulación productiva hacia mercados regionales."
+    }
+  },
+  {
+    name: "Ocros",
+    zone: "Sierra sur y occidental",
+    focus: "Servicios en territorio disperso",
+    intro: "Ocros necesita una política regional pensada para poblaciones pequeñas y dispersas. La solución no es centralizar, sino acercar servicios y proyectos bien diseñados.",
+    problems: ["Baja conectividad digital", "Brechas de agua, saneamiento y electrificación rural", "Dificultad para sacar producción agropecuaria"],
+    solutions: {
+      corto: "Atención móvil de salud y registro de brechas por comunidad.",
+      mediano: "Paquetes modulares de saneamiento, electrificación e internet comunitario.",
+      largo: "Conectividad vial hacia Lima y Huánuco para abrir mercados y reducir aislamiento."
+    }
+  },
+  {
+    name: "Carlos Fermín Fitzcarrald",
+    zone: "Conchucos",
+    focus: "Carretera y servicios",
+    intro: "Carlos Fermín Fitzcarrald necesita que su voz pese en la agenda regional. La prioridad es conectar mejor, cuidar a la primera infancia y cerrar brechas básicas.",
+    problems: ["Aislamiento en el eje de la Longitudinal de Conchucos", "Postas con limitada capacidad de respuesta", "Saneamiento y conectividad pendientes"],
+    solutions: {
+      corto: "Brigadas de salud, nutrición y mantenimiento de vías de emergencia.",
+      mediano: "Mejoramiento de establecimientos, saneamiento rural y conectividad escolar.",
+      largo: "Pavimentación del corredor de Conchucos y red logística para productos locales."
+    }
+  },
+  {
+    name: "Casma",
+    zone: "Costa",
+    focus: "Chinecas y empleo",
+    intro: "Casma puede crecer con agricultura, turismo y empleo formal si la región gestiona bien el agua. Chinecas debe dejar de ser discurso y convertirse en oportunidad concreta.",
+    problems: ["Dependencia de proyectos de irrigación postergados", "Necesidad de empleo formal fuera de actividades tradicionales", "Gestión ambiental y saneamiento urbano-rural"],
+    solutions: {
+      corto: "Mesa provincial de agua, empleo y residuos con metas de gestión verificables.",
+      mediano: "Preparar cartera de proyectos productivos y capacitación para aprovechar Chinecas.",
+      largo: "Ejecución de irrigación y cadenas agroexportadoras con valor agregado local."
+    }
+  },
+  {
+    name: "Santa",
+    zone: "Costa",
+    focus: "Ambiente urbano y empleo",
+    intro: "Santa concentra población, industria y urgencias ambientales. Chimbote y Nuevo Chimbote necesitan una región que gestione residuos, agua, salud y empleo con autoridad técnica.",
+    problems: ["Gestión deficiente de residuos sólidos urbanos", "Presión sobre servicios de salud y agua", "Necesidad de diversificar empleo más allá de pesca e industria tradicional"],
+    solutions: {
+      corto: "Plan de choque para residuos, puntos críticos ambientales y mantenimiento de servicios esenciales.",
+      mediano: "Fortalecer salud urbana, formación laboral y proyectos productivos conectados a Chinecas.",
+      largo: "Chinecas, reconversión productiva y recuperación ambiental como motor de empleo formal."
+    }
+  },
+  {
+    name: "Huarmey",
+    zone: "Costa",
+    focus: "Agua, puerto y sierra",
+    intro: "Huarmey debe mirar al mar, al valle y a la sierra al mismo tiempo. La región tiene que conectar riego, logística, salud y rutas hacia el interior.",
+    problems: ["Necesidad de mejorar conectividad hacia la sierra y Lima", "Retos de agua para agricultura y desarrollo urbano", "Brechas de salud preventiva y empleo local"],
+    solutions: {
+      corto: "Campañas de salud y mesa de conectividad Huarmey-sierra con puntos críticos viales.",
+      mediano: "Proyectos de riego, saneamiento y articulación con cadenas productivas costeras.",
+      largo: "Aprovechar Chinecas y corredores logísticos para empleo formal y agroindustria."
+    }
+  },
+  {
+    name: "Huaylas",
+    zone: "Callejón de Huaylas",
+    focus: "Turismo y producción",
+    intro: "Huaylas tiene identidad, paisaje y producción. La gestión regional debe conectar turismo, agricultura y prevención de riesgos para que el desarrollo llegue a más distritos.",
+    problems: ["Riesgo de desastres asociado a montaña y clima", "Turismo poco integrado a cadenas locales", "Brechas de servicios en distritos rurales"],
+    solutions: {
+      corto: "Mapa de riesgos y mantenimiento de vías vecinales usadas por productores y visitantes.",
+      mediano: "Rutas turísticas comunitarias y asistencia a productores para vender en circuitos regionales.",
+      largo: "Infraestructura de alerta y conectividad para una economía turística descentralizada."
+    }
+  },
+  {
+    name: "Carhuaz",
+    zone: "Callejón de Huaylas",
+    focus: "Turismo descentralizado",
+    intro: "Carhuaz puede ser ejemplo de turismo ordenado y economía familiar. Para lograrlo, necesita servicios, seguridad ante riesgos y promoción que incluya a sus distritos.",
+    problems: ["Dependencia del circuito turístico clásico", "Riesgo por fenómenos de montaña", "Servicios básicos incompletos en zonas rurales"],
+    solutions: {
+      corto: "Señalización de riesgos, atención preventiva y limpieza de rutas turísticas.",
+      mediano: "Promoción turística interdistrital, saneamiento básico y conectividad digital para emprendedores.",
+      largo: "Sistema de alerta temprana y corredor turístico-productivo del Callejón de Huaylas."
+    }
+  },
+  {
+    name: "Yungay",
+    zone: "Callejón de Huaylas",
+    focus: "Memoria, riesgo y futuro",
+    intro: "Yungay conoce el costo de no prevenir. Una región seria debe honrar su memoria con ciencia, alerta temprana, turismo responsable y servicios para sus comunidades.",
+    problems: ["Exposición a aluviones y movimientos en masa", "Necesidad de turismo responsable y descentralizado", "Brechas de servicios y conectividad rural"],
+    solutions: {
+      corto: "Actualización de rutas de evacuación, simulacros y atención de puntos críticos.",
+      mediano: "Circuitos de memoria, naturaleza y producción con beneficio para familias locales.",
+      largo: "Monitoreo de lagunas glaciares y obras de mitigación con financiamiento multianual."
+    }
+  },
+  {
+    name: "Asunción",
+    zone: "Conchucos",
+    focus: "Ruralidad con dignidad",
+    intro: "Asunción requiere una gestión que entienda la ruralidad como prioridad, no como excusa. La región debe llevar salud, conectividad y obras pequeñas que cambian la vida diaria.",
+    problems: ["Provincia de alta ruralidad", "Dificultad de acceso a servicios de salud y educación", "Saneamiento y caminos vecinales pendientes"],
+    solutions: {
+      corto: "Brigadas regionales de salud y primera infancia en comunidades alejadas.",
+      mediano: "Cartera de saneamiento, electrificación complementaria y conectividad escolar.",
+      largo: "Integración con el corredor de Conchucos para reducir aislamiento y fortalecer producción local."
+    }
+  }
+];
 
-function enviarWhatsApp(event) {
-  event.preventDefault();
-  const form = event.target;
-  const tipo = form.dataset.tipo;
-  const data = new FormData(form);
+const buttonsContainer = document.getElementById("provinceButtons");
+const provinceTitle = document.getElementById("provinceTitle");
+const provinceZone = document.getElementById("provinceZone");
+const provinceFocus = document.getElementById("provinceFocus");
+const provinceIntro = document.getElementById("provinceIntro");
+const provinceProblems = document.getElementById("provinceProblems");
+const provinceSolutions = document.getElementById("provinceSolutions");
 
-  let mensaje = `*Registro de ${tipo} — Venceremos Áncash*%0A`;
-  mensaje += `Nombre: ${data.get("nombre") || "-"}%0A`;
-  mensaje += `Celular: ${data.get("celular") || "-"}%0A`;
-  mensaje += `Distrito/Provincia: ${data.get("distrito") || "-"}%0A`;
-  if (data.get("necesidad")) mensaje += `Necesidad principal: ${data.get("necesidad")}%0A`;
-  if (data.get("local")) mensaje += `Local de votación: ${data.get("local")}%0A`;
-
-  const url = `https://wa.me/${WHATSAPP_NUMERO}?text=${mensaje}`;
-  window.open(url, "_blank");
-
-  form.reset();
-  const nota = document.createElement("p");
-  nota.className = "form-sent-note";
-  nota.textContent = "Se abrió WhatsApp con tus datos. Solo falta que presiones enviar. ¡Gracias por sumarte!";
-  form.after(nota);
-  setTimeout(() => nota.remove(), 6000);
-
-  return false;
+function renderProvinceButtons() {
+  provinces.forEach((province, index) => {
+    const button = document.createElement("button");
+    button.type = "button";
+    button.className = `province-button${index === 0 ? " active" : ""}`;
+    button.textContent = province.name;
+    button.dataset.index = index;
+    button.addEventListener("click", () => selectProvince(index));
+    buttonsContainer.appendChild(button);
+  });
 }
+
+function selectProvince(index) {
+  const province = provinces[index];
+  document.querySelectorAll(".province-button").forEach((button) => {
+    button.classList.toggle("active", Number(button.dataset.index) === index);
+  });
+
+  provinceTitle.textContent = province.name;
+  provinceZone.textContent = province.zone;
+  provinceFocus.textContent = province.focus;
+  provinceIntro.textContent = province.intro;
+
+  provinceProblems.innerHTML = province.problems
+    .map((problem) => `<li>${problem}</li>`)
+    .join("");
+
+  provinceSolutions.innerHTML = `
+    <div class="timeline-item"><span>Corto plazo</span><p>${province.solutions.corto}</p></div>
+    <div class="timeline-item"><span>Mediano plazo</span><p>${province.solutions.mediano}</p></div>
+    <div class="timeline-item"><span>Largo plazo</span><p>${province.solutions.largo}</p></div>
+  `;
+}
+
+renderProvinceButtons();
+selectProvince(0);

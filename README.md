@@ -1,39 +1,62 @@
 # Sitio de campaña — Walter Severo Durand Castro (Venceremos, Áncash 2026)
 
-Landing page estática (HTML + CSS + JS puro, sin dependencias de build) lista para publicar en **GitHub Pages**.
+Landing page estática lista para publicar en GitHub Pages. No requiere backend ni proceso de build.
+
+## Qué incluye
+
+- Hero de campaña con mensaje central de gestión territorial.
+- Módulo interactivo con 20 botones de acceso, uno por provincia de Áncash.
+- Ficha política por provincia con:
+  - presentación breve,
+  - principales problemas,
+  - solución de corto, mediano y largo plazo.
+- Sección de prioridades regionales: salud, educación, servicios básicos, vías y economía.
+- Biografía sintética de Walter Durand.
+- Enlaces directos a Microsoft Forms:
+  - simpatizantes y reporte de necesidades,
+  - inscripción de personeros.
+- Redes sociales de campaña.
 
 ## Estructura
-```
-index.html        → toda la página (header, hero, biografía, prioridades, únete, contacto)
-styles.css         → identidad visual (rojo/verde del partido + motivo topográfico andino)
-script.js          → arma y envía el mensaje de WhatsApp desde los formularios
+
+```text
+index.html
+styles.css
+script.js
 assets/
-  logo-venceremos.jpg         → símbolo del partido
-  candidato-walter-durand.jpg → foto oficial del candidato
+  logo-venceremos.jpg
+  candidato-walter-durand.jpg
 ```
 
-## Estado actual
-✅ Biografía completa con datos reales (ayuda memoria del Club Rotary Huaraz Colonial).
-✅ Formularios de simpatizante y personero: al enviarlos, se abre WhatsApp con los datos
-   ya redactados, listos para mandar al número de campaña (+51 932 757 214). No requieren
-   backend ni servicio externo — funcionan apenas se publique el sitio.
+## Base de contenido
 
-## Pendiente / opcional
-- Si además quieres que los registros lleguen por **correo**, se puede sumar
-  [Formspree](https://formspree.io) (gratis, sin tarjeta): te registras, te dan un
-  endpoint, y lo pego en el atributo `action` de cada `<form>`. Aviso: esto es un
-  servicio de terceros — sus datos pasarán por sus servidores antes de llegarte al correo.
-- El plan de gobierno detallado (propuestas por eje) aún debe registrarse ante el JNE;
-  ver el documento "Estrategia_Outsider_Durand_Castro.docx" para la hoja de ruta.
+Las fichas provinciales se construyeron a partir del informe `Necesidades_Ancash_por_Provincia.docx`, que agrupa la región por zonas y ejes prioritarios:
+
+- Costa: Santa, Casma, Huarmey.
+- Callejón de Huaylas: Huaraz, Carhuaz, Yungay, Recuay, Huaylas, Aija.
+- Conchucos: Huari, Antonio Raymondi, Asunción, Carlos Fermín Fitzcarrald, Sihuas, Pomabamba, Mariscal Luzuriaga, Corongo.
+- Sierra sur y occidental: Bolognesi, Ocros, Pallasca, Recuay.
+
+Fuentes citadas en el informe base: Gobierno Regional de Áncash, INEI, DIRESA Áncash, MINEDU, ANA, Proyecto Especial Chinecas y Antamina.
+
+## Probar localmente
+
+Desde esta carpeta:
+
+```bash
+python -m http.server 8008
+```
+
+Luego abrir:
+
+```text
+http://127.0.0.1:8008/index.html
+```
 
 ## Publicar en GitHub Pages
-1. Crea un repositorio nuevo en GitHub (puede ser público o privado con GitHub Pro).
-2. Sube estos elementos (`index.html`, `styles.css`, `script.js`, `assets/`) a la raíz del repo.
-3. Ve a **Settings → Pages**.
-4. En "Source", selecciona la rama `main` y la carpeta `/ (root)`.
-5. Guarda. GitHub te dará una URL tipo `https://tuusuario.github.io/nombre-repo/`.
 
-## Redes ya enlazadas
-- Facebook oficial: enlazado en la sección de contacto.
-- TikTok @aylluancash: enlazado en la sección de contacto.
-
+1. Crear un repositorio en GitHub.
+2. Subir `index.html`, `styles.css`, `script.js` y `assets/` a la raíz del repositorio.
+3. Ir a `Settings → Pages`.
+4. Seleccionar la rama `main` y carpeta `/ (root)`.
+5. Guardar y usar la URL que entregue GitHub Pages.
